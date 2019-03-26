@@ -1,4 +1,11 @@
-# gasoline
-a DOS attack tool\n
-version:1.0.0
-writen by jijue
+我对DDOS攻击的兴趣一致不减，对python也是如此，
+于是我决定以写ddos工具来入门python，
+
+我将会参考公布在GitHub上的各类DDOS工具，
+一边学习，一边改进我的工具，
+
+我给他起名为gasoline，
+翻译过来就是石油的意思，
+但我要表达的是中国古时对石油的称谓--猛火油。
+
+作者：姬珏
