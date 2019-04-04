@@ -88,7 +88,9 @@ class gasoline(threading.Thread):
                     time.sleep(self.options.wait)
                     if options.verbose:
                         print_highlight('[INFO] sleeping ' + str(self.options.wait) + ' second to request')
-
+        except Exception as e:
+            print_highlight('[ERROR] %s'%e)
+            pass
 
 def lead(options):
     try:
@@ -100,13 +102,13 @@ def lead(options):
 
 
 def main():
-	parser=argparse.ArgumentParser()
-    parser.add_argument('-m','--method',default='get',dest='req_type',
-                        choice=['GET','get','POST','post'],metavar='',
-                        help='specify request method , get or post (default get)')
-    parser.add_argument('-i','--info',action='store_true',dest='info',
-                        help='show develop information of gasoline')
-	parser.add_argument('-t','--thread',dest='thread',
+    parser=argparse.ArgumentParser()
+
+    parser.add_argument('-m','--method',default='get',dest='req_type',choices=['GET','get','POST','post'],metavar='',help='specify request method , get or post (default get)')
+
+    parser.add_argument('-i','--info',action='store_true',dest='info',help='show develop information of gasoline')
+
+    parser.add_argument('-t','--thread',dest='thread',
                         help='specify the max number of request parameters',
                         default=500,type=int)
     parser.add_argument('-o','--timeout',type=float,default=0,
@@ -116,18 +118,18 @@ def main():
                         help='target url to attack')
     options=parser.parse_args()
 
-	if options.info:
+    if options.info:
         print_highlight('[INFO]'+banner)
 
     options.req_type=options.req_type.upper()
 
-    if options.target is None:
+    if options.url is None:
         print_highlight('[ERROR] the argument -u is required')
         sys.exit()
 
-    print_hightlight('[INFO] gasoline is starting...')
-    attack(options)
+    print_highlight('[INFO] gasoline is starting...')
+    lead(options)
 
 if __name__=='__main__':
-	main()
+    main()
 
