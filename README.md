@@ -1,11 +1,10 @@
-<<<<<<< HEAD
 # gasoline   
 
-version:1.0
+```version:1.0```
 
-writen by jijue
+```writen by jijue```
 
-github:https://github.com/bigblackhat
+[github](https://github.com/bigblackhat)
 
 
 #overview
@@ -26,6 +25,7 @@ github:https://github.com/bigblackhat
 ![image](./)常用的实例
    
 =======
+```
 我对DDOS攻击的兴趣一致不减，对python也是如此，
 于是我决定以写ddos工具来入门python，
 
@@ -41,6 +41,4 @@ github:https://github.com/bigblackhat
 我给他起名为gasoline，
 翻译成现代汉语是石油，
 中国古代称其为猛火油。
-
-作者：jijue
->>>>>>> 954f8a23241c759047e3dcdd807b6c3308af6efe
+```
